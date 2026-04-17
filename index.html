@@ -2,132 +2,116 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Prime Cleaning">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Prime Cleaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --blue: #7B9BB5;
-    --blue-dark: #4a6e8a;
-    --blue-light: #d4e3ef;
-    --blue-pale: #eef4f8;
-    --gray: #f5f7f9;
-    --text: #2c3e50;
-    --text-muted: #7f8c8d;
-    --success: #27ae60;
-    --danger: #e74c3c;
-    --warning: #f39c12;
-    --radius: 16px;
-    --shadow: 0 2px 20px rgba(123,155,181,0.15);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--gray); color: var(--text); min-height: 100vh; }
-  .login-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(160deg, #7B9BB5 0%, #4a6e8a 100%); padding: 2rem; }
-  .login-logo { text-align: center; margin-bottom: 2.5rem; }
-  .login-logo .bubble { width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: white; font-weight: 600; }
-  .login-logo h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: white; font-weight: 500; }
-  .login-logo p { color: rgba(255,255,255,0.8); font-size: 0.85rem; margin-top: 0.25rem; }
-  .login-card { background: white; border-radius: var(--radius); padding: 2rem; width: 100%; max-width: 360px; box-shadow: var(--shadow); }
-  .login-card h2 { font-size: 1.1rem; font-weight: 500; margin-bottom: 1.5rem; }
-  .form-group { margin-bottom: 1rem; }
-  .form-group label { font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.4rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--blue-light); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); background: var(--blue-pale); outline: none; transition: border-color 0.2s; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue); background: white; }
-  .form-group textarea { resize: none; height: 80px; }
-  .btn { width: 100%; padding: 0.9rem; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-  .btn-primary { background: var(--blue); color: white; }
-  .btn-primary:active { background: var(--blue-dark); transform: scale(0.98); }
-  .btn-outline { background: transparent; border: 1.5px solid var(--blue-light); color: var(--text); }
-  .login-error { color: var(--danger); font-size: 0.85rem; margin-top: 0.75rem; text-align: center; }
-  .app { display: none; flex-direction: column; min-height: 100vh; }
-  .app.active { display: flex; }
-  .header { background: white; padding: 1rem 1.25rem 0.75rem; box-shadow: 0 1px 10px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; }
-  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
-  .header-brand { display: flex; align-items: center; gap: 0.6rem; }
-  .header-brand .mini-logo { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: white; font-weight: 600; }
-  .header-brand span { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; }
-  .header-right { display: flex; align-items: center; gap: 0.5rem; }
-  .header-date { font-size: 0.8rem; color: var(--text-muted); }
-  .logout-btn { background: none; border: none; font-size: 0.75rem; color: var(--text-muted); cursor: pointer; padding: 0.25rem 0.5rem; }
-  .nav-tabs { display: flex; gap: 0.25rem; background: var(--gray); border-radius: 12px; padding: 4px; }
-  .nav-tab { flex: 1; padding: 0.5rem 0.25rem; border: none; background: transparent; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s; text-align: center; }
-  .nav-tab.active { background: white; color: var(--blue-dark); box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
-  .content { flex: 1; padding: 1rem; padding-bottom: 2rem; }
-  .today-header { margin-bottom: 1rem; }
-  .today-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; }
-  .today-header p { font-size: 0.85rem; color: var(--text-muted); }
-  .job-card { background: white; border-radius: var(--radius); padding: 1.25rem; margin-bottom: 0.75rem; box-shadow: var(--shadow); border-left: 4px solid var(--blue); }
-  .job-card.status-done { border-left-color: var(--success); opacity: 0.8; }
-  .job-card.status-inprogress { border-left-color: var(--warning); }
-  .job-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; }
-  .job-name { font-weight: 500; font-size: 1rem; }
-  .job-time { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
-  .status-badge { font-size: 0.72rem; font-weight: 500; padding: 0.25rem 0.6rem; border-radius: 20px; white-space: nowrap; }
-  .badge-scheduled { background: var(--blue-light); color: var(--blue-dark); }
-  .badge-inprogress { background: #fef3cd; color: #856404; }
-  .badge-done { background: #d4edda; color: #155724; }
-  .job-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .action-btn { flex: 1; min-width: 70px; padding: 0.6rem 0.4rem; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: all 0.2s; text-align: center; }
-  .action-btn:active { transform: scale(0.96); }
-  .btn-map { background: var(--blue-pale); color: var(--blue-dark); }
-  .btn-waze { background: #e8f5e9; color: #1b5e20; }
-  .btn-start { background: #fff3cd; color: #856404; }
-  .btn-finish { background: #d4edda; color: #155724; }
-  .btn-pay { background: #f3e5f5; color: #6a1b9a; }
-  .job-info { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem; }
-  .job-notes { font-size: 0.82rem; background: var(--blue-pale); border-radius: 8px; padding: 0.6rem 0.75rem; margin-bottom: 0.75rem; }
-  .job-password { font-size: 0.82rem; background: #fff3cd; border-radius: 8px; padding: 0.6rem 0.75rem; margin-bottom: 0.75rem; }
-  .job-password strong { color: #856404; }
-  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
-  .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
-  .empty-state p { font-size: 0.9rem; }
-  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-  .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 500; }
-  .btn-add { background: var(--blue); color: white; border: none; border-radius: 10px; padding: 0.55rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; }
-  .client-card { background: white; border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 0.75rem; box-shadow: var(--shadow); display: flex; align-items: center; gap: 1rem; cursor: pointer; }
-  .client-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: white; font-weight: 600; flex-shrink: 0; }
-  .client-info { flex: 1; }
-  .client-name { font-weight: 500; font-size: 0.95rem; }
-  .client-detail { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
-  .client-freq { font-size: 0.75rem; background: var(--blue-light); color: var(--blue-dark); padding: 0.2rem 0.5rem; border-radius: 20px; display: inline-block; margin-top: 0.3rem; }
-  .payment-card { background: white; border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 0.75rem; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; }
-  .payment-info .payment-name { font-weight: 500; font-size: 0.95rem; }
-  .payment-info .payment-date { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
-  .payment-right { text-align: right; }
-  .payment-value { font-weight: 500; font-size: 1.1rem; }
-  .payment-status { font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; display: inline-block; margin-top: 0.3rem; cursor: pointer; }
-  .status-paid { background: #d4edda; color: #155724; }
-  .status-pending { background: #fff3cd; color: #856404; }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: flex-end; justify-content: center; }
-  .modal-overlay.active { display: flex; }
-  .modal { background: white; border-radius: 20px 20px 0 0; padding: 1.5rem; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
-  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
-  .modal-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; }
-  .modal-close { background: var(--gray); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; cursor: pointer; }
-  .modal-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
-  .modal-actions .btn { flex: 1; }
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
-  .stat-card { background: white; border-radius: var(--radius); padding: 1rem; box-shadow: var(--shadow); text-align: center; }
-  .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--blue-dark); }
-  .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
-  .loading { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.9rem; }
-  .schedule-card { background: white; border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 0.75rem; box-shadow: var(--shadow); display: flex; align-items: center; gap: 1rem; }
-  .schedule-date-box { background: var(--blue); border-radius: 10px; padding: 0.5rem 0.75rem; text-align: center; flex-shrink: 0; }
-  .schedule-date-box .day { font-size: 1.4rem; font-weight: 500; color: white; line-height: 1; }
-  .schedule-date-box .weekday { font-size: 0.65rem; color: rgba(255,255,255,0.8); text-transform: uppercase; }
-  .schedule-info { flex: 1; }
-  .schedule-name { font-weight: 500; font-size: 0.95rem; }
-  .schedule-time { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
-  .icon-btn { background: var(--gray); border: none; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 1rem; }
-  .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #2c3e50; color: white; padding: 0.75rem 1.5rem; border-radius: 20px; font-size: 0.85rem; z-index: 999; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; }
-  .toast.show { opacity: 1; }
+:root{--blue:#7B9BB5;--blue-dark:#4a6e8a;--blue-light:#d4e3ef;--blue-pale:#eef4f8;--gray:#f5f7f9;--text:#2c3e50;--muted:#7f8c8d;--success:#27ae60;--danger:#e74c3c;--warning:#f39c12;--radius:16px;--shadow:0 2px 20px rgba(123,155,181,0.15);}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'DM Sans',sans-serif;background:var(--gray);color:var(--text);min-height:100vh;}
+.login-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#7B9BB5 0%,#4a6e8a 100%);padding:2rem;}
+.login-logo{text-align:center;margin-bottom:2.5rem;}
+.bubble{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:white;font-weight:600;}
+.login-logo h1{font-family:'Cormorant Garamond',serif;font-size:2rem;color:white;font-weight:500;}
+.login-logo p{color:rgba(255,255,255,0.8);font-size:0.85rem;margin-top:0.25rem;}
+.login-card{background:white;border-radius:var(--radius);padding:2rem;width:100%;max-width:360px;box-shadow:var(--shadow);}
+.login-card h2{font-size:1.1rem;font-weight:500;margin-bottom:1.5rem;}
+.form-group{margin-bottom:1rem;}
+.form-group label{font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.4rem;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.75rem 1rem;border:1.5px solid var(--blue-light);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);background:var(--blue-pale);outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);background:white;}
+.form-group textarea{resize:none;height:80px;}
+.btn{width:100%;padding:0.9rem;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.btn-primary{background:var(--blue);color:white;}
+.btn-primary:active{background:var(--blue-dark);transform:scale(0.98);}
+.btn-outline{background:transparent;border:1.5px solid var(--blue-light);color:var(--text);}
+.login-error{color:var(--danger);font-size:0.85rem;margin-top:0.75rem;text-align:center;}
+.app{display:none;flex-direction:column;min-height:100vh;}
+.app.active{display:flex;}
+.header{background:white;padding:1rem 1.25rem 0.75rem;box-shadow:0 1px 10px rgba(0,0,0,0.06);position:sticky;top:0;z-index:100;}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;}
+.header-brand{display:flex;align-items:center;gap:0.6rem;}
+.mini-logo{width:32px;height:32px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:white;font-weight:600;}
+.header-brand span{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;}
+.header-right{display:flex;align-items:center;gap:0.5rem;}
+.header-date{font-size:0.8rem;color:var(--muted);}
+.logout-btn{background:none;border:none;font-size:0.75rem;color:var(--muted);cursor:pointer;padding:0.25rem 0.5rem;}
+.nav-tabs{display:flex;gap:0.25rem;background:var(--gray);border-radius:12px;padding:4px;}
+.nav-tab{flex:1;padding:0.5rem 0.25rem;border:none;background:transparent;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center;}
+.nav-tab.active{background:white;color:var(--blue-dark);box-shadow:0 1px 6px rgba(0,0,0,0.1);}
+.content{flex:1;padding:1rem;padding-bottom:2rem;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;margin-bottom:0.25rem;}
+.section-sub{font-size:0.85rem;color:var(--muted);margin-bottom:1.25rem;}
+.date-group{margin-bottom:1.5rem;}
+.date-label{font-size:0.75rem;font-weight:500;color:var(--blue-dark);text-transform:uppercase;letter-spacing:0.08em;padding:0.4rem 0.75rem;background:var(--blue-light);border-radius:20px;display:inline-block;margin-bottom:0.75rem;}
+.date-label.today{background:var(--blue);color:white;}
+.job-card{background:white;border-radius:var(--radius);padding:1.25rem;margin-bottom:0.75rem;box-shadow:var(--shadow);border-left:4px solid var(--blue);}
+.job-card.status-done{border-left-color:var(--success);opacity:0.75;}
+.job-card.status-inprogress{border-left-color:var(--warning);}
+.job-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.75rem;}
+.job-name{font-weight:500;font-size:1rem;}
+.job-time{font-size:0.8rem;color:var(--muted);margin-top:0.15rem;}
+.status-badge{font-size:0.72rem;font-weight:500;padding:0.25rem 0.6rem;border-radius:20px;white-space:nowrap;}
+.badge-scheduled{background:var(--blue-light);color:var(--blue-dark);}
+.badge-inprogress{background:#fef3cd;color:#856404;}
+.badge-done{background:#d4edda;color:#155724;}
+.job-info{font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;}
+.job-notes{font-size:0.82rem;background:var(--blue-pale);border-radius:8px;padding:0.6rem 0.75rem;margin-bottom:0.75rem;}
+.job-password{font-size:0.82rem;background:#fff3cd;border-radius:8px;padding:0.6rem 0.75rem;margin-bottom:0.75rem;}
+.job-password strong{color:#856404;}
+.job-actions{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.action-btn{flex:1;min-width:70px;padding:0.6rem 0.4rem;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;cursor:pointer;transition:all 0.2s;text-align:center;}
+.action-btn:active{transform:scale(0.96);}
+.btn-map{background:var(--blue-pale);color:var(--blue-dark);}
+.btn-waze{background:#e8f5e9;color:#1b5e20;}
+.btn-start{background:#fff3cd;color:#856404;}
+.btn-finish{background:#d4edda;color:#155724;}
+.btn-pay{background:#f3e5f5;color:#6a1b9a;}
+.btn-edit{background:var(--gray);color:var(--text);}
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--muted);}
+.empty-state .icon{font-size:3rem;margin-bottom:1rem;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.section-header h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;}
+.btn-add{background:var(--blue);color:white;border:none;border-radius:10px;padding:0.55rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;}
+.client-card{background:white;border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:0.75rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:1rem;cursor:pointer;}
+.client-avatar{width:44px;height:44px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:white;font-weight:600;flex-shrink:0;}
+.client-info{flex:1;}
+.client-name{font-weight:500;font-size:0.95rem;}
+.client-detail{font-size:0.8rem;color:var(--muted);margin-top:0.15rem;}
+.client-freq{font-size:0.75rem;background:var(--blue-light);color:var(--blue-dark);padding:0.2rem 0.5rem;border-radius:20px;display:inline-block;margin-top:0.3rem;}
+.payment-card{background:white;border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:0.75rem;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;}
+.payment-name{font-weight:500;font-size:0.95rem;}
+.payment-date{font-size:0.8rem;color:var(--muted);margin-top:0.15rem;}
+.payment-right{text-align:right;}
+.payment-value{font-weight:500;font-size:1.1rem;}
+.payment-status{font-size:0.75rem;padding:0.2rem 0.6rem;border-radius:20px;display:inline-block;margin-top:0.3rem;cursor:pointer;}
+.status-paid{background:#d4edda;color:#155724;}
+.status-pending{background:#fff3cd;color:#856404;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.25rem;}
+.stat-card{background:white;border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow);text-align:center;}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--blue-dark);}
+.stat-label{font-size:0.75rem;color:var(--muted);margin-top:0.25rem;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-overlay.active{display:flex;}
+.modal{background:white;border-radius:20px 20px 0 0;padding:1.5rem;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.modal-header h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;}
+.modal-close{background:var(--gray);border:none;width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;}
+.modal-actions{display:flex;gap:0.75rem;margin-top:1.25rem;}
+.modal-actions .btn{flex:1;}
+.loading{text-align:center;padding:2rem;color:var(--muted);font-size:0.9rem;}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:0.75rem 1.5rem;border-radius:20px;font-size:0.85rem;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
 </style>
 </head>
 <body>
-
 <div class="login-screen" id="loginScreen">
   <div class="login-logo">
     <div class="bubble">S</div>
@@ -148,34 +132,25 @@
 <div class="app" id="app">
   <div class="header">
     <div class="header-top">
-      <div class="header-brand">
-        <div class="mini-logo">S</div>
-        <span>Prime Cleaning</span>
-      </div>
+      <div class="header-brand"><div class="mini-logo">S</div><span>Prime Cleaning</span></div>
       <div class="header-right">
         <div class="header-date" id="headerDate"></div>
         <button class="logout-btn" onclick="doLogout()">Exit</button>
       </div>
     </div>
     <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('today')">Today</button>
-      <button class="nav-tab" onclick="switchTab('schedule')">Schedule</button>
+      <button class="nav-tab active" onclick="switchTab('jobs')">Jobs</button>
       <button class="nav-tab" onclick="switchTab('clients')">Clients</button>
       <button class="nav-tab" onclick="switchTab('payments')">Payments</button>
     </div>
   </div>
-
   <div class="content">
-    <div id="tab-today">
-      <div class="today-header">
-        <h2>Today's Jobs</h2>
-        <p id="todaySubtitle"></p>
+    <div id="tab-jobs">
+      <div class="section-header">
+        <div><div class="section-title">Upcoming Jobs</div><div class="section-sub" id="jobsSub"></div></div>
+        <button class="btn-add" onclick="openAddSchedule()">+ New</button>
       </div>
-      <div id="todayList"><div class="loading">Loading...</div></div>
-    </div>
-    <div id="tab-schedule" style="display:none">
-      <div class="section-header"><h2>Schedule</h2><button class="btn-add" onclick="openAddSchedule()">+ New</button></div>
-      <div id="scheduleList"><div class="loading">Loading...</div></div>
+      <div id="jobsList"><div class="loading">Loading...</div></div>
     </div>
     <div id="tab-clients" style="display:none">
       <div class="section-header"><h2>Clients</h2><button class="btn-add" onclick="openAddClient()">+ New</button></div>
@@ -203,7 +178,7 @@
     </div>
     <div class="form-group"><label>Phone</label><input type="tel" id="clientTelefone" placeholder="(667) 000-0000"></div>
     <div class="form-group"><label>Cleaning Frequency</label>
-      <select id="clientFrequencia"><option value="">Select frequency</option><option>Weekly</option><option>Bi-weekly</option><option>Monthly</option><option>One-time</option></select>
+      <select id="clientFrequencia"><option value="">Select</option><option>Weekly</option><option>Bi-weekly</option><option>Monthly</option><option>One-time</option></select>
     </div>
     <div class="form-group"><label>Notes</label><textarea id="clientObs" placeholder="Important notes about this home..."></textarea></div>
     <div class="form-group"><label>🔑 Door / Garage Password</label><input type="text" id="clientSenha" placeholder="e.g. Door: 1234 / Garage: 5678"></div>
@@ -251,138 +226,150 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbzpkTEvdR-L8PNf55Tg5SgZb5xe_9jxH4K3q-1uaLXUrLN9ndg4DVUeZDx8yfUUySjx/exec';
-const PASSWORD = 'Prime@Cleaning2024!';
-let clientes=[], agendamentos=[], pagamentos=[];
+const API='https://script.google.com/macros/s/AKfycbzpkTEvdR-L8PNf55Tg5SgZb5xe_9jxH4K3q-1uaLXUrLN9ndg4DVUeZDx8yfUUySjx/exec';
+const PASSWORD='Prime@Cleaning2024!';
+let clientes=[],agendamentos=[],pagamentos=[];
 
-function showToast(msg) {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
-function doLogin() {
+function doLogin(){
   const pw=document.getElementById('loginPassword').value;
-  if(pw===PASSWORD) {
-    localStorage.setItem('pc_auth','1');
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('app').classList.add('active');
-    initApp();
-  } else {
-    document.getElementById('loginError').textContent='Incorrect password. Try again.';
-  }
+  if(pw===PASSWORD){localStorage.setItem('pc_auth','1');document.getElementById('loginScreen').style.display='none';document.getElementById('app').classList.add('active');initApp();}
+  else{document.getElementById('loginError').textContent='Incorrect password.';}
 }
+function doLogout(){localStorage.removeItem('pc_auth');location.reload();}
+function checkAuth(){if(localStorage.getItem('pc_auth')==='1'){document.getElementById('loginScreen').style.display='none';document.getElementById('app').classList.add('active');initApp();}}
 
-function doLogout() { localStorage.removeItem('pc_auth'); location.reload(); }
-
-function checkAuth() {
-  if(localStorage.getItem('pc_auth')==='1') {
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('app').classList.add('active');
-    initApp();
-  }
-}
-
-function initApp() {
+function initApp(){
   const now=new Date();
   document.getElementById('headerDate').textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-  document.getElementById('todaySubtitle').textContent=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
   loadAll();
 }
 
-function callAPI(params) {
+function callAPI(params){
   return new Promise((resolve,reject)=>{
-    const cbName='cb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
-    const script=document.createElement('script');
-    const timeout=setTimeout(()=>{
-      delete window[cbName];
-      if(document.body.contains(script)) document.body.removeChild(script);
-      reject(new Error('Timeout'));
-    },15000);
-    window[cbName]=function(data){
-      clearTimeout(timeout);
-      delete window[cbName];
-      if(document.body.contains(script)) document.body.removeChild(script);
-      resolve(data);
-    };
-    params.callback=cbName;
-    script.src=API+'?'+new URLSearchParams(params).toString();
-    script.onerror=()=>{clearTimeout(timeout);delete window[cbName];reject(new Error('Error'));};
-    document.body.appendChild(script);
+    const cb='cb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const s=document.createElement('script');
+    const to=setTimeout(()=>{delete window[cb];if(s.parentNode)s.parentNode.removeChild(s);reject(new Error('Timeout'));},15000);
+    window[cb]=function(data){clearTimeout(to);delete window[cb];if(s.parentNode)s.parentNode.removeChild(s);resolve(data);};
+    params.callback=cb;
+    s.src=API+'?'+new URLSearchParams(params).toString();
+    s.onerror=()=>{clearTimeout(to);delete window[cb];reject(new Error('Error'));};
+    document.body.appendChild(s);
   });
 }
 
-async function loadAll() {
-  try {
-    const [c,a,p]=await Promise.all([
-      callAPI({action:'getClientes'}),
-      callAPI({action:'getAgendamentos'}),
-      callAPI({action:'getPagamentos'})
-    ]);
+async function loadAll(){
+  try{
+    const [c,a,p]=await Promise.all([callAPI({action:'getClientes'}),callAPI({action:'getAgendamentos'}),callAPI({action:'getPagamentos'})]);
     clientes=Array.isArray(c)?c:[];
     agendamentos=Array.isArray(a)?a:[];
     pagamentos=Array.isArray(p)?p:[];
-    renderToday(); renderSchedule(); renderClients(); renderPayments();
-  } catch(e) { showToast('Connection error.'); }
+    renderJobs();renderClients();renderPayments();
+  }catch(e){showToast('Connection error. Check internet.');}
 }
 
-function getToday() {
-  const n=new Date();
-  return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
+function getToday(){const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}
+
+function parseDataStr(val){
+  if(!val)return '';
+  const s=String(val);
+  const m=s.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(m)return m[0];
+  const d=new Date(s);
+  if(!isNaN(d.getTime()))return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  return '';
 }
 
-function renderToday() {
+function parseTime(val){
+  if(!val)return '--:--';
+  const s=String(val);
+  const hm=s.match(/(\d{1,2}):(\d{2})/);
+  if(hm)return hm[1].padStart(2,'0')+':'+hm[2];
+  const d=new Date(s);
+  if(!isNaN(d.getTime()))return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  return '--:--';
+}
+
+function formatDateLabel(dateStr){
   const today=getToday();
-  const jobs=agendamentos.filter(a=>parseDataStr(a.data)===today).sort((a,b)=>(a.hora_inicio||'')>(b.hora_inicio||'')?1:-1);
-  const el=document.getElementById('todayList');
-  if(!jobs.length){el.innerHTML='<div class="empty-state"><div class="icon">🏠</div><p>No jobs scheduled for today.</p></div>';return;}
-  el.innerHTML=jobs.map(job=>{
-    const c=clientes.find(x=>x.id==job.id_cliente)||{};
-    const sc=job.status==='Done'?'status-done':job.status==='In Progress'?'status-inprogress':'';
-    const bc=job.status==='Done'?'badge-done':job.status==='In Progress'?'badge-inprogress':'badge-scheduled';
-    const addr=encodeURIComponent((c.endereco||'')+' '+(c.cidade||'')+' MD');
-    return `<div class="job-card ${sc}">
-      <div class="job-card-header">
-        <div><div class="job-name">${job.nome_cliente}</div><div class="job-time">⏰ ${parseTime(job.hora_inicio)} → ${parseTime(job.hora_fim)}</div></div>
-        <span class="status-badge ${bc}">${job.status||'Scheduled'}</span>
-      </div>
-      ${c.endereco?`<div class="job-info">📍 ${c.endereco}, ${c.cidade}</div>`:''}
-      ${c.observacoes?`<div class="job-notes">📋 ${c.observacoes}</div>`:''}
-      ${c.senha?`<div class="job-password">🔑 <strong>Password:</strong> ${c.senha}</div>`:''}
-      <div class="job-actions">
-        <button class="action-btn btn-map" onclick="openMaps('${addr}')">📍 Maps</button>
-        <button class="action-btn btn-waze" onclick="openWaze('${addr}')">🚗 Waze</button>
-        ${job.status!=='In Progress'&&job.status!=='Done'?`<button class="action-btn btn-start" onclick="startJob('${job.id}')">▶ Start</button>`:''}
-        ${job.status==='In Progress'?`<button class="action-btn btn-finish" onclick="finishJob('${job.id}')">✓ Done!</button>`:''}
-        <button class="action-btn btn-pay" onclick="quickPayment('${job.id_cliente}','${job.data}')">💰 Pay</button>
-      </div>
-    </div>`;
-  }).join('');
+  const p=dateStr.split('-');
+  const d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+  const tomorrow=new Date();tomorrow.setDate(tomorrow.getDate()+1);
+  const tomorrowStr=tomorrow.getFullYear()+'-'+String(tomorrow.getMonth()+1).padStart(2,'0')+'-'+String(tomorrow.getDate()).padStart(2,'0');
+  if(dateStr===today)return {label:'Today — '+d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}),isToday:true};
+  if(dateStr===tomorrowStr)return {label:'Tomorrow — '+d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}),isToday:false};
+  return {label:d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}),isToday:false};
 }
 
-function renderSchedule() {
-  const el=document.getElementById('scheduleList');
-  const sorted=[...agendamentos].sort((a,b)=>a.data!==b.data?a.data>b.data?1:-1:(a.hora_inicio||'')>(b.hora_inicio||'')?1:-1);
-  if(!sorted.length){el.innerHTML='<div class="empty-state"><div class="icon">📅</div><p>No appointments yet.</p></div>';return;}
-  const wds=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  el.innerHTML=sorted.map(a=>{
-    const dp=String(a.data).split('-');const d=dp.length===3?{getDate:()=>parseInt(dp[2]),getDay:()=>new Date(parseInt(dp[0]),parseInt(dp[1])-1,parseInt(dp[2])).getDay()}:{getDate:()=>'?',getDay:()=>0};
-    const bc=a.status==='Done'?'badge-done':a.status==='In Progress'?'badge-inprogress':'badge-scheduled';
-    return `<div class="schedule-card">
-      <div class="schedule-date-box"><div class="day">${d.getDate()}</div><div class="weekday">${wds[d.getDay()]}</div></div>
-      <div class="schedule-info">
-        <div class="schedule-name">${a.nome_cliente}</div>
-        <div class="schedule-time">${parseTime(a.hora_inicio)} → ${parseTime(a.hora_fim)}</div>
-        <span class="status-badge ${bc}" style="margin-top:4px;display:inline-block">${a.status||'Scheduled'}</span>
-      </div>
-      <button class="icon-btn" onclick="editSchedule('${a.id}')">✏️</button>
-    </div>`;
-  }).join('');
+function formatDate(d){
+  if(!d)return '';
+  const s=parseDataStr(d);
+  if(!s)return String(d);
+  const p=s.split('-');
+  const dt=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
+  return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
 
-function renderClients() {
+function renderJobs(){
+  const el=document.getElementById('jobsList');
+  const today=getToday();
+  
+  // Sort and group by date
+  const sorted=[...agendamentos].sort((a,b)=>{
+    const da=parseDataStr(a.data),db=parseDataStr(b.data);
+    if(da!==db)return da>db?1:-1;
+    return parseTime(a.hora_inicio)>parseTime(b.hora_inicio)?1:-1;
+  });
+
+  if(!sorted.length){el.innerHTML='<div class="empty-state"><div class="icon">📅</div><p>No appointments yet. Tap + New to add one!</p></div>';return;}
+
+  // Group by date
+  const groups={};
+  sorted.forEach(a=>{
+    const ds=parseDataStr(a.data)||'unknown';
+    if(!groups[ds])groups[ds]=[];
+    groups[ds].push(a);
+  });
+
+  let count=Object.values(groups).flat().length;
+  document.getElementById('jobsSub').textContent=count+' appointment'+(count!==1?'s':'')+' scheduled';
+
+  let html='';
+  Object.keys(groups).sort().forEach(dateStr=>{
+    const {label,isToday}=formatDateLabel(dateStr);
+    html+=`<div class="date-group"><span class="date-label ${isToday?'today':''}">${label}</span>`;
+    groups[dateStr].forEach(job=>{
+      const c=clientes.find(x=>x.id==job.id_cliente)||{};
+      const sc=job.status==='Done'?'status-done':job.status==='In Progress'?'status-inprogress':'';
+      const bc=job.status==='Done'?'badge-done':job.status==='In Progress'?'badge-inprogress':'badge-scheduled';
+      const addr=encodeURIComponent((c.endereco||'')+' '+(c.cidade||'')+' MD');
+      html+=`<div class="job-card ${sc}">
+        <div class="job-card-header">
+          <div><div class="job-name">${job.nome_cliente}</div><div class="job-time">⏰ ${parseTime(job.hora_inicio)} → ${parseTime(job.hora_fim)}</div></div>
+          <span class="status-badge ${bc}">${job.status||'Scheduled'}</span>
+        </div>
+        ${c.endereco?`<div class="job-info">📍 ${c.endereco}, ${c.cidade}</div>`:''}
+        ${c.observacoes?`<div class="job-notes">📋 ${c.observacoes}</div>`:''}
+        ${c.senha?`<div class="job-password">🔑 <strong>Password:</strong> ${c.senha}</div>`:''}
+        <div class="job-actions">
+          <button class="action-btn btn-map" onclick="openMaps('${addr}')">📍 Maps</button>
+          <button class="action-btn btn-waze" onclick="openWaze('${addr}')">🚗 Waze</button>
+          ${job.status!=='In Progress'&&job.status!=='Done'?`<button class="action-btn btn-start" onclick="startJob('${job.id}')">▶ Start</button>`:''}
+          ${job.status==='In Progress'?`<button class="action-btn btn-finish" onclick="finishJob('${job.id}')">✓ Done!</button>`:''}
+          <button class="action-btn btn-edit" onclick="editSchedule('${job.id}')">✏️</button>
+          <button class="action-btn btn-pay" onclick="quickPayment('${job.id_cliente}','${parseDataStr(job.data)}')">💰 Pay</button>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+function renderClients(){
   const el=document.getElementById('clientList');
-  if(!clientes.length){el.innerHTML='<div class="empty-state"><div class="icon">👥</div><p>No clients yet. Add your first one!</p></div>';return;}
+  if(!clientes.length){el.innerHTML='<div class="empty-state"><div class="icon">👥</div><p>No clients yet.</p></div>';return;}
   el.innerHTML=clientes.map(c=>{
     const ini=c.nome.split(' ').map(n=>n[0]).slice(0,2).join('').toUpperCase();
     return `<div class="client-card" onclick="editClient('${c.id}')">
@@ -397,17 +384,17 @@ function renderClients() {
   }).join('');
 }
 
-function renderPayments() {
+function renderPayments(){
   const el=document.getElementById('paymentList');
   let tp=0,tpd=0;
   pagamentos.forEach(p=>{const v=parseFloat(p.valor)||0;if(p.status==='Paid')tp+=v;else tpd+=v;});
   document.getElementById('statPaid').textContent='$'+tp.toFixed(0);
   document.getElementById('statPending').textContent='$'+tpd.toFixed(0);
-  if(!pagamentos.length){el.innerHTML='<div class="empty-state"><div class="icon">💰</div><p>No payments recorded yet.</p></div>';return;}
-  el.innerHTML=[...pagamentos].sort((a,b)=>a.data>b.data?-1:1).map(p=>{
+  if(!pagamentos.length){el.innerHTML='<div class="empty-state"><div class="icon">💰</div><p>No payments yet.</p></div>';return;}
+  el.innerHTML=[...pagamentos].sort((a,b)=>parseDataStr(a.data)<parseDataStr(b.data)?1:-1).map(p=>{
     const sc=p.status==='Paid'?'status-paid':'status-pending';
     return `<div class="payment-card">
-      <div class="payment-info"><div class="payment-name">${p.nome_cliente}</div><div class="payment-date">${formatDate(p.data)}</div></div>
+      <div><div class="payment-name">${p.nome_cliente}</div><div class="payment-date">${formatDate(p.data)}</div></div>
       <div class="payment-right">
         <div class="payment-value">$${parseFloat(p.valor||0).toFixed(2)}</div>
         <span class="payment-status ${sc}" onclick="togglePayment('${p.id}','${p.status}')">${p.status}</span>
@@ -416,78 +403,68 @@ function renderPayments() {
   }).join('');
 }
 
-function parseTime(v){if(!v)return '--:--';const s=String(v);const hm=s.match(/(d{1,2}):(d{2})/);if(hm)return hm[1].padStart(2,'0')+':'+hm[2];const d=new Date(s);if(!isNaN(d.getTime()))return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');return '--:--';}function parseDataStr(v){if(!v)return '';const s=String(v);const m=s.match(/(d{4})-(d{2})-(d{2})/);if(m)return m[0];const d=new Date(s);if(!isNaN(d.getTime()))return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');return s;}function formatDate(d){if(!d)return '';const s=parseDataStr(d);if(!s)return '';const p=s.split('-');const dt=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
-
-function switchTab(tab) {
-  ['today','schedule','clients','payments'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'block':'none');
-  document.querySelectorAll('.nav-tab').forEach((el,i)=>el.classList.toggle('active',['today','schedule','clients','payments'][i]===tab));
+function switchTab(tab){
+  ['jobs','clients','payments'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'block':'none');
+  document.querySelectorAll('.nav-tab').forEach((el,i)=>el.classList.toggle('active',['jobs','clients','payments'][i]===tab));
 }
 
 function openModal(id){document.getElementById(id).classList.add('active');}
 function closeModal(id){document.getElementById(id).classList.remove('active');}
 
-function openAddClient() {
+function openAddClient(){
   document.getElementById('modalClientTitle').textContent='New Client';
   ['clientId','clientNome','clientEndereco','clientTelefone','clientObs','clientSenha'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('clientCidade').value='';document.getElementById('clientFrequencia').value='';
-  document.getElementById('btnDeleteClient').style.display='none';
-  openModal('modalClient');
+  document.getElementById('btnDeleteClient').style.display='none';openModal('modalClient');
 }
-
-function editClient(id) {
+function editClient(id){
   const c=clientes.find(x=>x.id==id);if(!c)return;
   document.getElementById('modalClientTitle').textContent='Edit Client';
   document.getElementById('clientId').value=c.id;document.getElementById('clientNome').value=c.nome||'';
   document.getElementById('clientEndereco').value=c.endereco||'';document.getElementById('clientCidade').value=c.cidade||'';
   document.getElementById('clientTelefone').value=c.telefone||'';document.getElementById('clientFrequencia').value=c.frequencia||'';
   document.getElementById('clientObs').value=c.observacoes||'';document.getElementById('clientSenha').value=c.senha||'';
-  document.getElementById('btnDeleteClient').style.display='block';
-  openModal('modalClient');
+  document.getElementById('btnDeleteClient').style.display='block';openModal('modalClient');
 }
-
-async function saveClient() {
+async function saveClient(){
   const id=document.getElementById('clientId').value;
   const nome=document.getElementById('clientNome').value;
   if(!nome){showToast('Please enter a name.');return;}
   const params={nome,endereco:document.getElementById('clientEndereco').value,cidade:document.getElementById('clientCidade').value,
     telefone:document.getElementById('clientTelefone').value,frequencia:document.getElementById('clientFrequencia').value,
     observacoes:document.getElementById('clientObs').value,senha:document.getElementById('clientSenha').value};
-  params.action=id?'updateCliente':'addCliente';
-  if(id)params.id=id;
-  showToast('Saving...');
-  await callAPI(params);
-  closeModal('modalClient');showToast('Saved! ✓');await loadAll();
+  params.action=id?'updateCliente':'addCliente';if(id)params.id=id;
+  showToast('Saving...');await callAPI(params);closeModal('modalClient');showToast('Saved! ✓');await loadAll();
 }
-
-async function deleteClient() {
+async function deleteClient(){
   if(!confirm('Delete this client?'))return;
   await callAPI({action:'deleteCliente',id:document.getElementById('clientId').value});
   closeModal('modalClient');showToast('Deleted.');await loadAll();
 }
 
-function populateClientSelect(selectId,selectedId) {
+function populateClientSelect(selectId,selectedId){
   const sel=document.getElementById(selectId);
   sel.innerHTML='<option value="">Select client</option>'+clientes.map(c=>`<option value="${c.id}" ${c.id==selectedId?'selected':''}>${c.nome}</option>`).join('');
 }
-
-function openAddSchedule() {
+function openAddSchedule(){
   document.getElementById('modalScheduleTitle').textContent='New Appointment';
   document.getElementById('scheduleId').value='';document.getElementById('scheduleData').value=getToday();
   document.getElementById('scheduleInicio').value='';document.getElementById('scheduleFim').value='';
   document.getElementById('scheduleObs').value='';document.getElementById('btnDeleteSchedule').style.display='none';
   populateClientSelect('scheduleCliente','');openModal('modalSchedule');
 }
-
-function editSchedule(id) {
+function editSchedule(id){
   const a=agendamentos.find(x=>x.id==id);if(!a)return;
   document.getElementById('modalScheduleTitle').textContent='Edit Appointment';
-  document.getElementById('scheduleId').value=a.id;document.getElementById('scheduleData').value=a.data||'';
-  document.getElementById('scheduleInicio').value=a.hora_inicio||'';document.getElementById('scheduleFim').value=a.hora_fim||'';
-  document.getElementById('scheduleObs').value=a.observacoes||'';document.getElementById('btnDeleteSchedule').style.display='block';
+  document.getElementById('scheduleId').value=a.id;
+  document.getElementById('scheduleData').value=parseDataStr(a.data)||'';
+  document.getElementById('scheduleInicio').value=parseTime(a.hora_inicio)!=='--:--'?parseTime(a.hora_inicio):'';
+  document.getElementById('scheduleFim').value=parseTime(a.hora_fim)!=='--:--'?parseTime(a.hora_fim):'';
+  document.getElementById('scheduleObs').value=a.observacoes||'';
+  document.getElementById('btnDeleteSchedule').style.display='block';
   populateClientSelect('scheduleCliente',a.id_cliente);openModal('modalSchedule');
 }
-
-async function saveSchedule() {
+async function saveSchedule(){
   const id=document.getElementById('scheduleId').value;
   const cid=document.getElementById('scheduleCliente').value;
   const c=clientes.find(x=>x.id==cid);
@@ -496,48 +473,40 @@ async function saveSchedule() {
     hora_inicio:document.getElementById('scheduleInicio').value,hora_fim:document.getElementById('scheduleFim').value,
     observacoes:document.getElementById('scheduleObs').value,status:'Scheduled'};
   params.action=id?'updateAgendamento':'addAgendamento';
-  if(id){params.id=id;params.status=agendamentos.find(a=>a.id==id)?.status||'Scheduled';}
-  showToast('Saving...');await callAPI(params);
-  closeModal('modalSchedule');showToast('Saved! ✓');await loadAll();
+  if(id){params.id=id;const ex=agendamentos.find(a=>a.id==id);params.status=ex?ex.status:'Scheduled';}
+  showToast('Saving...');await callAPI(params);closeModal('modalSchedule');showToast('Saved! ✓');await loadAll();
 }
-
-async function deleteSchedule() {
+async function deleteSchedule(){
   if(!confirm('Delete this appointment?'))return;
   await callAPI({action:'deleteAgendamento',id:document.getElementById('scheduleId').value});
   closeModal('modalSchedule');showToast('Deleted.');await loadAll();
 }
-
-async function startJob(id) {
+async function startJob(id){
   const a=agendamentos.find(x=>x.id==id);if(!a)return;
   const n=new Date();const t=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
   showToast('Job started!');
-  await callAPI({...a,action:'updateAgendamento',status:'In Progress',hora_inicio:t});
+  await callAPI({...a,action:'updateAgendamento',data:parseDataStr(a.data),hora_inicio:t,hora_fim:parseTime(a.hora_fim),status:'In Progress'});
   await loadAll();
 }
-
-async function finishJob(id) {
+async function finishJob(id){
   const a=agendamentos.find(x=>x.id==id);if(!a)return;
   const n=new Date();const t=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
   showToast('Job completed! ✓');
-  await callAPI({...a,action:'updateAgendamento',status:'Done',hora_fim:t});
+  await callAPI({...a,action:'updateAgendamento',data:parseDataStr(a.data),hora_inicio:parseTime(a.hora_inicio),hora_fim:t,status:'Done'});
   await loadAll();
 }
-
-function openAddPayment() {
+function openAddPayment(){
   document.getElementById('modalPaymentTitle').textContent='New Payment';
   document.getElementById('paymentId').value='';document.getElementById('paymentData').value=getToday();
   document.getElementById('paymentValor').value='';document.getElementById('paymentStatus').value='Pending';
   document.getElementById('paymentObs').value='';document.getElementById('btnDeletePayment').style.display='none';
   populateClientSelect('paymentCliente','');openModal('modalPayment');
 }
-
-function quickPayment(clienteId,data) {
-  openAddPayment();
-  document.getElementById('paymentData').value=data||getToday();
+function quickPayment(clienteId,data){
+  openAddPayment();document.getElementById('paymentData').value=data||getToday();
   populateClientSelect('paymentCliente',clienteId);
 }
-
-async function savePayment() {
+async function savePayment(){
   const id=document.getElementById('paymentId').value;
   const cid=document.getElementById('paymentCliente').value;
   const c=clientes.find(x=>x.id==cid);
@@ -546,30 +515,25 @@ async function savePayment() {
     valor:document.getElementById('paymentValor').value,status:document.getElementById('paymentStatus').value,
     observacoes:document.getElementById('paymentObs').value};
   params.action=id?'updatePagamento':'addPagamento';if(id)params.id=id;
-  showToast('Saving...');await callAPI(params);
-  closeModal('modalPayment');showToast('Saved! ✓');await loadAll();
+  showToast('Saving...');await callAPI(params);closeModal('modalPayment');showToast('Saved! ✓');await loadAll();
 }
-
-async function deletePayment() {
+async function deletePayment(){
   if(!confirm('Delete this payment?'))return;
   await callAPI({action:'deletePagamento',id:document.getElementById('paymentId').value});
   closeModal('modalPayment');showToast('Deleted.');await loadAll();
 }
-
-async function togglePayment(id,currentStatus) {
+async function togglePayment(id,cs){
   const p=pagamentos.find(x=>x.id==id);if(!p)return;
-  const ns=currentStatus==='Paid'?'Pending':'Paid';
+  const ns=cs==='Paid'?'Pending':'Paid';
   showToast(ns==='Paid'?'Marked as paid! ✓':'Marked as pending.');
   await callAPI({...p,action:'updatePagamento',status:ns});await loadAll();
 }
-
 function openMaps(addr){window.open('https://maps.google.com/?q='+addr,'_blank');}
 function openWaze(addr){window.open('https://waze.com/ul?q='+addr,'_blank');}
 
 document.querySelectorAll('.modal-overlay').forEach(m=>{
   m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('active');});
 });
-
 checkAuth();
 </script>
 </body>
