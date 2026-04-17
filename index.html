@@ -366,7 +366,7 @@ function renderSchedule() {
   if(!sorted.length){el.innerHTML='<div class="empty-state"><div class="icon">📅</div><p>No appointments yet.</p></div>';return;}
   const wds=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   el.innerHTML=sorted.map(a=>{
-    const d=new Date(a.data+'T12:00:00');
+    const dp=String(a.data).split('-');const d=dp.length===3?{getDate:()=>parseInt(dp[2]),getDay:()=>new Date(parseInt(dp[0]),parseInt(dp[1])-1,parseInt(dp[2])).getDay()}:{getDate:()=>'?',getDay:()=>0};
     const bc=a.status==='Done'?'badge-done':a.status==='In Progress'?'badge-inprogress':'badge-scheduled';
     return `<div class="schedule-card">
       <div class="schedule-date-box"><div class="day">${d.getDate()}</div><div class="weekday">${wds[d.getDay()]}</div></div>
@@ -416,7 +416,7 @@ function renderPayments() {
   }).join('');
 }
 
-function formatDate(d){if(!d)return '';return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function formatDate(d){if(!d)return '';const p=String(d).split('-');if(p.length===3){const dt=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}return d;}
 
 function switchTab(tab) {
   ['today','schedule','clients','payments'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'block':'none');
