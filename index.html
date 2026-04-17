@@ -251,7 +251,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbxcjgWNkBU0hp6IWF8tXNSO8hJ4B1V4G5zJWQXUSKBuFq83p7dUql_PzibYKTHOKIk/exec';
+const API = 'https://script.google.com/macros/s/AKfycbzpkTEvdR-L8PNf55Tg5SgZb5xe_9jxH4K3q-1uaLXUrLN9ndg4DVUeZDx8yfUUySjx/exec';
 const PASSWORD = 'Prime@Cleaning2024!';
 let clientes=[], agendamentos=[], pagamentos=[];
 
@@ -333,7 +333,7 @@ function getToday() {
 
 function renderToday() {
   const today=getToday();
-  const jobs=agendamentos.filter(a=>a.data===today).sort((a,b)=>(a.hora_inicio||'')>(b.hora_inicio||'')?1:-1);
+  const jobs=agendamentos.filter(a=>parseDataStr(a.data)===today).sort((a,b)=>(a.hora_inicio||'')>(b.hora_inicio||'')?1:-1);
   const el=document.getElementById('todayList');
   if(!jobs.length){el.innerHTML='<div class="empty-state"><div class="icon">🏠</div><p>No jobs scheduled for today.</p></div>';return;}
   el.innerHTML=jobs.map(job=>{
@@ -343,7 +343,7 @@ function renderToday() {
     const addr=encodeURIComponent((c.endereco||'')+' '+(c.cidade||'')+' MD');
     return `<div class="job-card ${sc}">
       <div class="job-card-header">
-        <div><div class="job-name">${job.nome_cliente}</div><div class="job-time">⏰ ${job.hora_inicio||'--:--'} → ${job.hora_fim||'--:--'}</div></div>
+        <div><div class="job-name">${job.nome_cliente}</div><div class="job-time">⏰ ${parseTime(job.hora_inicio)} → ${parseTime(job.hora_fim)}</div></div>
         <span class="status-badge ${bc}">${job.status||'Scheduled'}</span>
       </div>
       ${c.endereco?`<div class="job-info">📍 ${c.endereco}, ${c.cidade}</div>`:''}
@@ -372,7 +372,7 @@ function renderSchedule() {
       <div class="schedule-date-box"><div class="day">${d.getDate()}</div><div class="weekday">${wds[d.getDay()]}</div></div>
       <div class="schedule-info">
         <div class="schedule-name">${a.nome_cliente}</div>
-        <div class="schedule-time">${a.hora_inicio||'--:--'} → ${a.hora_fim||'--:--'}</div>
+        <div class="schedule-time">${parseTime(a.hora_inicio)} → ${parseTime(a.hora_fim)}</div>
         <span class="status-badge ${bc}" style="margin-top:4px;display:inline-block">${a.status||'Scheduled'}</span>
       </div>
       <button class="icon-btn" onclick="editSchedule('${a.id}')">✏️</button>
@@ -416,7 +416,7 @@ function renderPayments() {
   }).join('');
 }
 
-function formatDate(d){if(!d)return '';const p=String(d).split('-');if(p.length===3){const dt=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}return d;}
+function parseTime(v){if(!v)return '--:--';const s=String(v);const hm=s.match(/(d{1,2}):(d{2})/);if(hm)return hm[1].padStart(2,'0')+':'+hm[2];const d=new Date(s);if(!isNaN(d.getTime()))return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');return '--:--';}function parseDataStr(v){if(!v)return '';const s=String(v);const m=s.match(/(d{4})-(d{2})-(d{2})/);if(m)return m[0];const d=new Date(s);if(!isNaN(d.getTime()))return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');return s;}function formatDate(d){if(!d)return '';const s=parseDataStr(d);if(!s)return '';const p=s.split('-');const dt=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
 
 function switchTab(tab) {
   ['today','schedule','clients','payments'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'block':'none');
